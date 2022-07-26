@@ -80,7 +80,7 @@ private fun MainScreen(navController: NavHostController) {
 private fun NavHost(navController: NavHostController, innerPadding: PaddingValues) {
     NavHost(
         navController,
-        startDestination = Screen.Profile.route,
+        startDestination = Screen.AdsList.route,
         Modifier.padding(innerPadding)
     ) {
         composable(Screen.Profile.route) { ProfileScreen() }
