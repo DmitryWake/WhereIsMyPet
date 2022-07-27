@@ -13,13 +13,14 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.WhereMyPet"
-        tools:targetApi="31">
+        android:theme="@style/Theme.WhereIsMyPet"
+        tools:targetApi="31"
+        android:name=".App">
         <activity
-            android:name="com.ewake.whereismypet.MainActivity"
+            android:name="com.ewake.whereismypet.ui.MainActivity"
             android:exported="true"
             android:label="@string/app_name"
-            android:theme="@style/Theme.WhereMyPet">
+            android:theme="@style/Theme.WhereIsMyPet">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

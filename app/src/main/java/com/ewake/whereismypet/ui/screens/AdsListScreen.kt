@@ -17,21 +17,25 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import androidx.paging.compose.collectAsLazyPagingItems
+import androidx.paging.compose.items
 import coil.compose.SubcomposeAsyncImage
 import com.ewake.whereismypet.model.AdModel
-import com.ewake.whereismypet.navigation.Screen
-import com.ewake.whereismypet.utils.createTempAdsList
+import com.ewake.whereismypet.ui.navigation.Screen
+import com.ewake.whereismypet.ui.viewmodel.AdsFeedViewModel
 
 /**
  * @author Nikolaevsky Dmitry (@d.nikolaevskiy)
  */
 
 @Composable
-fun AdsListScreen(navController: NavController) {
+fun AdsListScreen(navController: NavController, viewModel: AdsFeedViewModel) {
+    val adsList = viewModel.feedFlow.collectAsLazyPagingItems()
+
     LazyColumn(modifier = Modifier.padding(top = 16.dp)) {
-        createTempAdsList().forEach { model ->
-            item {
-                AdCard(model = model, onCardClickListener = { navController.navigate(Screen.AdDetail.route) })
+        items(adsList) { model ->
+            model?.let {
+                AdCard(model = it, onCardClickListener = { navController.navigate(Screen.AdDetail.route) })
             }
         }
     }
@@ -57,7 +61,11 @@ fun AdCard(model: AdModel, onCardClickListener: (model: AdModel) -> Unit) {
                 modifier = Modifier.height(200.dp)
             )
 
-            Text(text = model.title, fontSize = 32.sp, modifier = Modifier.padding(top = 16.dp, start = 16.dp, end = 16.dp))
+            Text(
+                text = model.title,
+                fontSize = 32.sp,
+                modifier = Modifier.padding(top = 16.dp, start = 16.dp, end = 16.dp)
+            )
             Text(
                 text = model.description,
                 fontSize = 18.sp,

@@ -1,8 +1,9 @@
-package com.ewake.whereismypet
+package com.ewake.whereismypet.ui
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -14,19 +15,26 @@ import androidx.compose.runtime.getValue
 import androidx.navigation.compose.rememberNavController
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
-import com.ewake.whereismypet.navigation.Screen
+import com.ewake.whereismypet.ui.navigation.Screen
 import com.ewake.whereismypet.ui.screens.AdDetailScreen
 import com.ewake.whereismypet.ui.screens.AdsListScreen
 import com.ewake.whereismypet.ui.screens.ProfileScreen
 import com.ewake.whereismypet.ui.theme.WhereMyPetTheme
+import com.ewake.whereismypet.ui.viewmodel.AdsFeedViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+
+    val adsFeedViewModel: AdsFeedViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -84,7 +92,10 @@ private fun NavHost(navController: NavHostController, innerPadding: PaddingValue
         Modifier.padding(innerPadding)
     ) {
         composable(Screen.Profile.route) { ProfileScreen() }
-        composable(Screen.AdsList.route) { AdsListScreen(navController) }
+        composable(Screen.AdsList.route) {
+            val viewModel = hiltViewModel<AdsFeedViewModel>()
+            AdsListScreen(navController, viewModel)
+        }
         composable(Screen.AdDetail.route) { AdDetailScreen() }
     }
 }

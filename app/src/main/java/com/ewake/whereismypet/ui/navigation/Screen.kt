@@ -1,4 +1,4 @@
-package com.ewake.whereismypet.navigation
+package com.ewake.whereismypet.ui.navigation
 
 import androidx.annotation.StringRes
 import com.ewake.whereismypet.R
