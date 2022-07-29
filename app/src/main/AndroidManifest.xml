@@ -15,9 +15,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.WhereIsMyPet"
         tools:targetApi="31"
-        android:name=".App">
+        android:name=".main.App">
         <activity
-            android:name="com.ewake.whereismypet.ui.MainActivity"
+            android:name=".main.MainActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.WhereIsMyPet">
