@@ -1,7 +1,7 @@
 package com.ewake.whereismypet.data.repository.di
 
-import com.ewake.whereismypet.data.repository.AdsFeedRepository
-import com.ewake.whereismypet.data.repository.impl.TempAdsFeedRepository
+import com.ewake.whereismypet.data.repository.AdsRepository
+import com.ewake.whereismypet.data.repository.impl.TempAdsRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -14,5 +14,5 @@ import dagger.hilt.components.SingletonComponent
 @InstallIn(SingletonComponent::class)
 abstract class RepositoryModule {
     @Binds
-    abstract fun bindAdsFeedRepository(impl: TempAdsFeedRepository): AdsFeedRepository
+    abstract fun bindAdsFeedRepository(impl: TempAdsRepository): AdsRepository
 }

@@ -3,12 +3,13 @@ package com.ewake.whereismypet.feature.ads.adsfeed.paging
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.ewake.whereismypet.core.model.AdModel
-import com.ewake.whereismypet.data.repository.AdsFeedRepository
+import com.ewake.whereismypet.data.repository.AdsRepository
+import kotlinx.coroutines.flow.collect
 
 /**
  * @author Nikolaevskiy Dmitriy
  */
-class AdsFeedPagingSource(private val repository: AdsFeedRepository) : PagingSource<Int, AdModel>() {
+class AdsFeedPagingSource(private val repository: AdsRepository) : PagingSource<Int, AdModel>() {
     override fun getRefreshKey(state: PagingState<Int, AdModel>): Int? {
         return state.anchorPosition
     }

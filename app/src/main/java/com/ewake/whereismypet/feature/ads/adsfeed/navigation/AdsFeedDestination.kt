@@ -1,5 +1,6 @@
 package com.ewake.whereismypet.feature.ads.adsfeed.navigation
 
+import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
@@ -15,6 +16,7 @@ object AdsFeedDestination : NavigationDestination {
     override val destination: String = "ads_feed_destination"
 }
 
+@ExperimentalLifecycleComposeApi
 fun NavGraphBuilder.adsFeedGraph(onDetailsNavigate: () -> Unit) {
     navigation(startDestination = AdsFeedDestination.destination, route = AdsFeedDestination.route) {
         composable(AdsFeedDestination.destination) {
