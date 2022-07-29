@@ -1,4 +1,4 @@
-package com.ewake.whereismypet.ui.screens
+package com.ewake.whereismypet.feature.ads.adsfeed
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -16,26 +16,26 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.items
 import coil.compose.SubcomposeAsyncImage
-import com.ewake.whereismypet.model.AdModel
-import com.ewake.whereismypet.ui.navigation.Screen
-import com.ewake.whereismypet.ui.viewmodel.AdsFeedViewModel
+import com.ewake.whereismypet.core.model.AdModel
+import com.ewake.whereismypet.feature.ads.adsfeed.viewmodel.AdsFeedViewModel
 
 /**
  * @author Nikolaevsky Dmitry (@d.nikolaevskiy)
  */
 
 @Composable
-fun AdsListScreen(navController: NavController, viewModel: AdsFeedViewModel) {
+fun AdsFeedScreen(onDetailsNavigate: () -> Unit, viewModel: AdsFeedViewModel = hiltViewModel()) {
+
     val adsList = viewModel.feedFlow.collectAsLazyPagingItems()
 
     LazyColumn(modifier = Modifier.padding(top = 16.dp)) {
         items(adsList) { model ->
             model?.let {
-                AdCard(model = it, onCardClickListener = { navController.navigate(Screen.AdDetail.route) })
+                AdCard(model = it, onCardClickListener = { onDetailsNavigate.invoke() })
             }
         }
     }

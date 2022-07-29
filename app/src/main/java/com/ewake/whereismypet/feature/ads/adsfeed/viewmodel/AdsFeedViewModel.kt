@@ -1,4 +1,4 @@
-package com.ewake.whereismypet.ui.viewmodel
+package com.ewake.whereismypet.feature.ads.adsfeed.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -6,8 +6,7 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
 import com.ewake.whereismypet.data.repository.AdsFeedRepository
-import com.ewake.whereismypet.model.AdModel
-import com.ewake.whereismypet.ui.paging.AdsFeedPagingSource
+import com.ewake.whereismypet.feature.ads.adsfeed.paging.AdsFeedPagingSource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 

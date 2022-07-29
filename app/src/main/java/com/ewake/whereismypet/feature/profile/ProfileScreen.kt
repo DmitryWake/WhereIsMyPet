@@ -1,13 +1,13 @@
-package com.ewake.whereismypet.ui.screens
+package com.ewake.whereismypet.feature.profile
 
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 
 /**
  * @author Nikolaevsky Dmitry (@d.nikolaevskiy)
  */
+
 @Composable
-fun AdDetailScreen() {
-    Text(text = "AdDetail")
+fun ProfileScreen() {
+    Text(text = "Profile")
 }

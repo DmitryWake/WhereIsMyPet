@@ -4,31 +4,32 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.composable
-import com.ewake.whereismypet.ui.navigation.Screen
-import com.ewake.whereismypet.ui.screens.AdDetailScreen
-import com.ewake.whereismypet.ui.screens.AdsListScreen
-import com.ewake.whereismypet.ui.screens.ProfileScreen
-import com.ewake.whereismypet.ui.viewmodel.AdsFeedViewModel
+import com.ewake.whereismypet.core.navigation.NavigationDestination
+import com.ewake.whereismypet.feature.ads.addetail.navigation.AdDetailDestination
+import com.ewake.whereismypet.feature.ads.adsfeed.navigation.AdsFeedDestination
+import com.ewake.whereismypet.feature.ads.adsfeed.navigation.adsFeedGraph
+import com.ewake.whereismypet.feature.profile.navigation.profileGraph
 
 /**
  * @author Nikolaevskiy Dmitriy
  */
 
 @Composable
-fun NavHost(navController: NavHostController, innerPadding: PaddingValues) {
+fun NavHost(
+    navController: NavHostController,
+    onNavigate: (NavigationDestination, String?) -> Unit,
+    innerPadding: PaddingValues,
+    startDestination: String = AdsFeedDestination.route
+) {
     androidx.navigation.compose.NavHost(
         navController,
-        startDestination = Screen.AdsList.route,
+        startDestination = startDestination,
         Modifier.padding(innerPadding)
     ) {
-        composable(Screen.Profile.route) { ProfileScreen() }
-        composable(Screen.AdsList.route) {
-            val viewModel = hiltViewModel<AdsFeedViewModel>()
-            AdsListScreen(navController, viewModel)
-        }
-        composable(Screen.AdDetail.route) { AdDetailScreen() }
+        profileGraph()
+        adsFeedGraph(onDetailsNavigate = {
+            onNavigate(AdDetailDestination, null)
+        })
     }
 }

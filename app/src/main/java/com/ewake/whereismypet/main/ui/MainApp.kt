@@ -14,9 +14,8 @@ import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
+import com.ewake.whereismypet.main.navigation.BottomBarDestination
 import com.ewake.whereismypet.main.navigation.NavHost
-import com.ewake.whereismypet.main.ui.AppState.Companion.BOTTOM_NAVIGATION_ITEMS
-import com.ewake.whereismypet.ui.navigation.Screen
 import com.ewake.whereismypet.ui.theme.WhereMyPetTheme
 
 /**
@@ -31,29 +30,33 @@ fun MainApp(appState: AppState = rememberAppState()) {
                 if (appState.isBottomBarVisible) {
                     MainBottomBar(
                         navController = appState.navController,
-                        bottomItems = BOTTOM_NAVIGATION_ITEMS
+                        bottomDestination = appState.bottomNavigationDestinations
                     )
                 }
             }
         ) {
-            NavHost(navController = appState.navController, it)
+            NavHost(
+                navController = appState.navController,
+                onNavigate = appState::navigate,
+                it
+            )
         }
     }
 }
 
 @Composable
-fun MainBottomBar(navController: NavHostController, bottomItems: List<Screen>) {
+fun MainBottomBar(navController: NavHostController, bottomDestination: List<BottomBarDestination>) {
     BottomNavigation {
         val navBackStackEntry by navController.currentBackStackEntryAsState()
         val currentDestination = navBackStackEntry?.destination
 
-        bottomItems.forEach { screen ->
+        bottomDestination.forEach { destination ->
             BottomNavigationItem(
                 icon = { Icon(Icons.Filled.Favorite, contentDescription = null) },
-                label = { Text(stringResource(screen.resourceId)) },
-                selected = currentDestination?.hierarchy?.any { it.route == screen.route } == true,
+                label = { Text(stringResource(destination.titleRes)) },
+                selected = currentDestination?.hierarchy?.any { it.route == destination.route } == true,
                 onClick = {
-                    navController.navigate(screen.route) {
+                    navController.navigate(destination.route) {
                         popUpTo(navController.graph.findStartDestination().id) {
                             saveState = true
                         }

@@ -1,4 +1,4 @@
-package com.ewake.whereismypet.di.module
+package com.ewake.whereismypet.data.repository.di
 
 import com.ewake.whereismypet.data.repository.AdsFeedRepository
 import com.ewake.whereismypet.data.repository.impl.TempAdsFeedRepository

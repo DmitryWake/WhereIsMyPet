@@ -1,8 +1,8 @@
 package com.ewake.whereismypet.data.repository.impl
 
+import com.ewake.whereismypet.core.model.AdModel
+import com.ewake.whereismypet.core.model.createTempAdsList
 import com.ewake.whereismypet.data.repository.AdsFeedRepository
-import com.ewake.whereismypet.model.AdModel
-import com.ewake.whereismypet.utils.createTempAdsList
 import javax.inject.Inject
 
 /**

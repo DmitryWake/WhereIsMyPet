@@ -1,4 +1,4 @@
-package com.ewake.whereismypet.ui.theme
+package com.ewake.whereismypet.core.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

@@ -1,9 +1,9 @@
-package com.ewake.whereismypet.ui.paging
+package com.ewake.whereismypet.feature.ads.adsfeed.paging
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
+import com.ewake.whereismypet.core.model.AdModel
 import com.ewake.whereismypet.data.repository.AdsFeedRepository
-import com.ewake.whereismypet.model.AdModel
 
 /**
  * @author Nikolaevskiy Dmitriy
