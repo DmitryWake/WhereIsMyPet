@@ -1,16 +1,17 @@
 package com.ewake.whereismypet.feature.ads.addetail.viewmodel
 
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ewake.whereismypet.core.model.AdModel
 import com.ewake.whereismypet.core.model.Result
 import com.ewake.whereismypet.core.model.asResult
 import com.ewake.whereismypet.data.repository.AdsRepository
+import com.ewake.whereismypet.feature.ads.addetail.navigation.AdDetailDestination
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
@@ -21,10 +22,12 @@ import javax.inject.Inject
 @HiltViewModel
 class AdDetailViewModel @Inject constructor(
     private val adsRepository: AdsRepository,
+    savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
 
-    //TODO Сделать получение из аргументов
-    private val adId = "1"
+    private val adId: String = checkNotNull(
+        savedStateHandle[AdDetailDestination.adIdArg]
+    )
 
     private val adStream: Flow<Result<AdModel>> = adsRepository.getAd(adId).asResult()
 

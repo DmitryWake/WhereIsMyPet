@@ -19,11 +19,9 @@ import com.ewake.whereismypet.feature.ads.addetail.viewmodel.AdModelUiState
 fun AdDetailScreen(viewModel: AdDetailViewModel = hiltViewModel()) {
     val uiState: AdDetailScreenUiState by viewModel.uiState.collectAsStateWithLifecycle()
 
-    when(uiState.adModelUiState) {
+    when (uiState.adModelUiState) {
         AdModelUiState.Error -> Text(text = "Ошибка")
         AdModelUiState.Loading -> CircularProgressIndicator()
-        is AdModelUiState.Success -> Text(text = "Загрузилось")
+        is AdModelUiState.Success -> Text(text = (uiState.adModelUiState as AdModelUiState.Success).data.id)
     }
-
-
 }

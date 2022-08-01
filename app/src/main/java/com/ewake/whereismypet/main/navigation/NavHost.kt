@@ -31,7 +31,7 @@ fun NavHost(
     ) {
         profileGraph()
         adsFeedGraph(onDetailsNavigate = {
-            onNavigate(AdDetailDestination, null)
+            onNavigate(AdDetailDestination, AdDetailDestination.createNavigationRoute(it))
         })
     }
 }

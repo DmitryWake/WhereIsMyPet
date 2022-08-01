@@ -15,7 +15,7 @@ import javax.inject.Inject
  */
 @HiltViewModel
 class AdsFeedViewModel @Inject constructor(
-    private val repository: AdsRepository
+    private val repository: AdsRepository,
 ) : ViewModel() {
     val feedFlow = Pager(PagingConfig(pageSize = 6)) {
         AdsFeedPagingSource(repository)

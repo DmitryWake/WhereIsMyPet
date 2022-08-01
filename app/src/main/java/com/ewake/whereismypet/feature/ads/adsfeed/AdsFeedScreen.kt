@@ -17,6 +17,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.items
 import coil.compose.SubcomposeAsyncImage
@@ -28,14 +29,25 @@ import com.ewake.whereismypet.feature.ads.adsfeed.viewmodel.AdsFeedViewModel
  */
 
 @Composable
-fun AdsFeedScreen(onDetailsNavigate: () -> Unit, viewModel: AdsFeedViewModel = hiltViewModel()) {
+fun AdsFeedScreen(onDetailsNavigate: (String) -> Unit, viewModel: AdsFeedViewModel = hiltViewModel()) {
 
-    val adsList = viewModel.feedFlow.collectAsLazyPagingItems()
+    val adsListItems = viewModel.feedFlow.collectAsLazyPagingItems()
 
-    LazyColumn(modifier = Modifier.padding(top = 16.dp)) {
-        items(adsList) { model ->
-            model?.let {
-                AdCard(model = it, onCardClickListener = { onDetailsNavigate.invoke() })
+    adsListItems.loadState.let { state ->
+        when {
+            state.refresh is LoadState.Loading || state.append is LoadState.Loading -> {
+                CircularProgressIndicator()
+            }
+            state.append is LoadState.Error -> {
+                Text(text = "Ошибка")
+            }
+        }
+    }
+
+    LazyColumn(modifier = Modifier.padding(top = 8.dp, bottom = 8.dp)) {
+        items(adsListItems) { model ->
+            model?.let { adModel ->
+                AdCard(model = adModel, onCardClickListener = { onDetailsNavigate.invoke(adModel.id) })
             }
         }
     }
@@ -45,7 +57,7 @@ fun AdsFeedScreen(onDetailsNavigate: () -> Unit, viewModel: AdsFeedViewModel = h
 fun AdCard(model: AdModel, onCardClickListener: (model: AdModel) -> Unit) {
     Card(
         modifier = Modifier
-            .padding(start = 16.dp, end = 16.dp, bottom = 16.dp)
+            .padding(start = 16.dp, end = 16.dp, bottom = 8.dp, top = 8.dp)
             .clickable { onCardClickListener.invoke(model) }
             .fillMaxWidth(), elevation = 8.dp,
         shape = RoundedCornerShape(16.dp)) {

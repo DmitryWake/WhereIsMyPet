@@ -17,7 +17,7 @@ object AdsFeedDestination : NavigationDestination {
 }
 
 @ExperimentalLifecycleComposeApi
-fun NavGraphBuilder.adsFeedGraph(onDetailsNavigate: () -> Unit) {
+fun NavGraphBuilder.adsFeedGraph(onDetailsNavigate: (String) -> Unit) {
     navigation(startDestination = AdsFeedDestination.destination, route = AdsFeedDestination.route) {
         composable(AdsFeedDestination.destination) {
             AdsFeedScreen(onDetailsNavigate)
