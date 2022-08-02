@@ -29,7 +29,7 @@ fun MainApp(appState: AppState = rememberAppState()) {
     WhereMyPetTheme {
         Scaffold(
             bottomBar = {
-                if (appState.isBottomBarVisible) {
+                if (appState.isBottomBarVisible.value) {
                     MainBottomBar(
                         navController = appState.navController,
                         bottomDestination = appState.bottomNavigationDestinations
@@ -40,6 +40,7 @@ fun MainApp(appState: AppState = rememberAppState()) {
             NavHost(
                 navController = appState.navController,
                 onNavigate = appState::navigate,
+                onBackPressed = appState::onBackPressed,
                 it
             )
         }

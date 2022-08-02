@@ -11,6 +11,7 @@ import com.ewake.whereismypet.feature.profile.ProfileScreen
 object ProfileDestination : NavigationDestination {
     override val route: String = "profile_route"
     override val destination: String = "profile_destination"
+    override val shouldShowBottomBar: Boolean = true
 }
 
 fun NavGraphBuilder.profileGraph() {

@@ -12,4 +12,6 @@ data class BottomBarDestination(
     override val destination: String,
     @DrawableRes val iconRes: Int? = null,
     @StringRes val titleRes: Int
-) : NavigationDestination
+) : NavigationDestination {
+    override val shouldShowBottomBar: Boolean = true
+}

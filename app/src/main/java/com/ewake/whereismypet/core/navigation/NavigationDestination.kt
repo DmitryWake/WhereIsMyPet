@@ -6,4 +6,5 @@ package com.ewake.whereismypet.core.navigation
 interface NavigationDestination {
     val route: String
     val destination: String
+    val shouldShowBottomBar: Boolean
 }

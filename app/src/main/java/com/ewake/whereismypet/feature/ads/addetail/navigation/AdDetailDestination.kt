@@ -19,6 +19,7 @@ object AdDetailDestination : NavigationDestination {
 
     override val route: String = "$routePrefix/{$adIdArg}"
     override val destination: String = "ad_detail_navigation"
+    override val shouldShowBottomBar: Boolean = false
 
     fun createNavigationRoute(adId: String): String {
         val encodedId = Uri.encode(adId)
@@ -32,13 +33,13 @@ object AdDetailDestination : NavigationDestination {
 }
 
 @ExperimentalLifecycleComposeApi
-fun NavGraphBuilder.adDetailDestination() {
+fun NavGraphBuilder.adDetailDestination(onBackPressed: () -> Unit) {
     composable(
         route = AdDetailDestination.route,
         arguments = listOf(
             navArgument(AdDetailDestination.adIdArg) { type = NavType.StringType }
         )
     ) {
-        AdDetailScreen()
+        AdDetailScreen(onBackPressed = onBackPressed)
     }
 }

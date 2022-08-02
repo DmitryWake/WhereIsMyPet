@@ -1,6 +1,8 @@
 package com.ewake.whereismypet.main.ui
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.navigation.NavDestination
 import androidx.navigation.NavGraph.Companion.findStartDestination
@@ -22,7 +24,7 @@ class AppState(val navController: NavHostController) {
         @Composable get() = navController
             .currentBackStackEntryAsState().value?.destination
 
-    var isBottomBarVisible: Boolean = true
+    var isBottomBarVisible: MutableState<Boolean> = mutableStateOf(true)
 
     val bottomNavigationDestinations = listOf(
         BottomBarDestination(
@@ -42,21 +44,22 @@ class AppState(val navController: NavHostController) {
     fun navigate(destination: NavigationDestination, route: String? = null) {
         if (destination is BottomBarDestination) {
             navController.navigate(route ?: destination.route) {
-                // Pop up to the start destination of the graph to
-                // avoid building up a large stack of destinations
-                // on the back stack as users select items
                 popUpTo(navController.graph.findStartDestination().id) {
                     saveState = true
                 }
-                // Avoid multiple copies of the same destination when
-                // reselecting the same item
                 launchSingleTop = true
-                // Restore state when reselecting a previously selected item
                 restoreState = true
             }
         } else {
             navController.navigate(route ?: destination.route)
         }
+
+        isBottomBarVisible.value = destination.shouldShowBottomBar
+    }
+
+    fun onBackPressed(shouldShowBottomBar: Boolean = true) {
+        isBottomBarVisible.value = shouldShowBottomBar
+        navController.popBackStack()
     }
 }
 

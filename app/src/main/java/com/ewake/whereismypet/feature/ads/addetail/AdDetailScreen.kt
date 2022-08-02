@@ -25,6 +25,7 @@ import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.SubcomposeAsyncImage
 import com.ewake.whereismypet.core.model.AdModel
+import com.ewake.whereismypet.core.navigation.BackHandler
 import com.ewake.whereismypet.feature.ads.addetail.viewmodel.AdDetailScreenUiState
 import com.ewake.whereismypet.feature.ads.addetail.viewmodel.AdDetailViewModel
 import com.ewake.whereismypet.feature.ads.addetail.viewmodel.AdModelUiState
@@ -34,12 +35,17 @@ import com.ewake.whereismypet.feature.ads.addetail.viewmodel.AdModelUiState
  */
 @ExperimentalLifecycleComposeApi
 @Composable
-fun AdDetailScreen(viewModel: AdDetailViewModel = hiltViewModel()) {
+fun AdDetailScreen(
+    onBackPressed: () -> Unit,
+    viewModel: AdDetailViewModel = hiltViewModel()
+) {
     val uiState: AdDetailScreenUiState by viewModel.uiState.collectAsStateWithLifecycle()
+
+    BackHandler(onBack = onBackPressed)
 
     Scaffold(
         topBar = {
-            AdDetailAppBar()
+            AdDetailAppBar(onBackPressed)
         }
     ) {
         when (uiState.adModelUiState) {
@@ -51,13 +57,13 @@ fun AdDetailScreen(viewModel: AdDetailViewModel = hiltViewModel()) {
 }
 
 @Composable
-private fun AdDetailAppBar() {
+private fun AdDetailAppBar(onBackPressed: () -> Unit) {
     TopAppBar(
         title = {
             Text(text = "Объявление")
         },
         navigationIcon = {
-            IconButton(onClick = { }) {
+            IconButton(onClick = { onBackPressed.invoke() }) {
                 Icon(imageVector = Icons.Filled.ArrowBack, contentDescription = "Back")
             }
         },

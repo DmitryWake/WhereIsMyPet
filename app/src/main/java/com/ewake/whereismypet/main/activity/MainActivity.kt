@@ -1,4 +1,4 @@
-package com.ewake.whereismypet.main
+package com.ewake.whereismypet.main.activity
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity

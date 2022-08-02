@@ -14,14 +14,15 @@ import com.ewake.whereismypet.feature.ads.adsfeed.AdsFeedScreen
 object AdsFeedDestination : NavigationDestination {
     override val route: String = "ads_feed_route"
     override val destination: String = "ads_feed_destination"
+    override val shouldShowBottomBar: Boolean = true
 }
 
 @ExperimentalLifecycleComposeApi
-fun NavGraphBuilder.adsFeedGraph(onDetailsNavigate: (String) -> Unit) {
+fun NavGraphBuilder.adsFeedGraph(onDetailsNavigate: (String) -> Unit, onAdDetailBackPressed: () -> Unit) {
     navigation(startDestination = AdsFeedDestination.destination, route = AdsFeedDestination.route) {
         composable(AdsFeedDestination.destination) {
             AdsFeedScreen(onDetailsNavigate)
         }
-        adDetailDestination()
+        adDetailDestination(onAdDetailBackPressed)
     }
 }

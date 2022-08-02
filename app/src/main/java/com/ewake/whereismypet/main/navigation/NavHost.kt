@@ -21,6 +21,7 @@ import com.ewake.whereismypet.feature.profile.navigation.profileGraph
 fun NavHost(
     navController: NavHostController,
     onNavigate: (NavigationDestination, String?) -> Unit,
+    onBackPressed: (Boolean) -> Unit,
     innerPadding: PaddingValues,
     startDestination: String = AdsFeedDestination.route
 ) {
@@ -30,8 +31,13 @@ fun NavHost(
         Modifier.padding(innerPadding)
     ) {
         profileGraph()
-        adsFeedGraph(onDetailsNavigate = {
-            onNavigate(AdDetailDestination, AdDetailDestination.createNavigationRoute(it))
-        })
+        adsFeedGraph(
+            onDetailsNavigate = {
+                onNavigate(AdDetailDestination, AdDetailDestination.createNavigationRoute(it))
+            },
+            onAdDetailBackPressed = {
+                onBackPressed(AdsFeedDestination.shouldShowBottomBar)
+            }
+        )
     }
 }
