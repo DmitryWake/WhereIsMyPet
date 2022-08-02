@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.WhereIsMyPet" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:statusBarColor">@color/purple_700</item>
+        <item name="android:windowSplashScreenBackground">@color/purple_200</item>
+        <item name="android:windowSplashScreenAnimatedIcon">@drawable/ic_launcher_background</item>
+        <item name="android:windowSplashScreenAnimationDuration">2000</item>
+        <item name="android:windowSplashScreenIconBackgroundColor">@color/purple_500</item>
+    </style>
+</resources>

@@ -4,8 +4,4 @@
     <style name="Theme.WhereIsMyPet" parent="android:Theme.Material.Light.NoActionBar">
         <item name="android:statusBarColor">@color/purple_700</item>
     </style>
-
-    <style name="SplashScreenTheme" parent="Theme.WhereIsMyPet">
-        <item name="android:windowBackground">@drawable/ic_launcher_background</item>
-    </style>
 </resources>

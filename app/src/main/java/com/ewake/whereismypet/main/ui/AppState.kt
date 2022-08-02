@@ -2,6 +2,7 @@ package com.ewake.whereismypet.main.ui
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.currentRecomposeScope
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.navigation.NavDestination
@@ -58,8 +59,8 @@ class AppState(val navController: NavHostController) {
     }
 
     fun onBackPressed(shouldShowBottomBar: Boolean = true) {
-        isBottomBarVisible.value = shouldShowBottomBar
         navController.popBackStack()
+        isBottomBarVisible.value = shouldShowBottomBar
     }
 }
 

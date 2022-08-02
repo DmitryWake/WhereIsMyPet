@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="com.ewake.whereismypet"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.ewake.whereismypet">
+
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
-        android:name=".main.App"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -13,25 +14,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.WhereIsMyPet"
-        tools:targetApi="31">
-
+        tools:targetApi="31"
+        android:name=".main.App">
         <activity
-            android:name=".main.activity.SplashActivity"
+            android:name=".main.MainActivity"
             android:exported="true"
-            android:theme="@style/SplashScreenTheme">
+            android:label="@string/app_name"
+            android:theme="@style/Theme.WhereIsMyPet">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity
-            android:name=".main.activity.MainActivity"
-            android:exported="true"
-            android:theme="@style/Theme.WhereIsMyPet" />
     </application>
-
-    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>
