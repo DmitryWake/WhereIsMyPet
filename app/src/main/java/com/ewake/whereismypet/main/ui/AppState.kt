@@ -43,10 +43,10 @@ class AppState(val navController: NavHostController) {
     )
 
     fun navigate(destination: NavigationDestination, route: String? = null) {
-        if (destination is BottomBarDestination) {
+        if (destination is BottomBarDestination || bottomNavigationDestinations.firstOrNull { it.route == destination.route } != null) {
             navController.navigate(route ?: destination.route) {
                 popUpTo(navController.graph.findStartDestination().id) {
-                    saveState = true
+                    inclusive = true
                 }
                 launchSingleTop = true
                 restoreState = true

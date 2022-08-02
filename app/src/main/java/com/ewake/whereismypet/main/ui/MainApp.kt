@@ -15,6 +15,7 @@ import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
+import com.ewake.whereismypet.core.navigation.NavigationDestination
 import com.ewake.whereismypet.main.navigation.BottomBarDestination
 import com.ewake.whereismypet.main.navigation.NavHost
 import com.ewake.whereismypet.ui.theme.WhereMyPetTheme
@@ -25,7 +26,9 @@ import com.ewake.whereismypet.ui.theme.WhereMyPetTheme
 
 @ExperimentalLifecycleComposeApi
 @Composable
-fun MainApp(appState: AppState = rememberAppState()) {
+fun MainApp(appState: AppState = rememberAppState(), startNavigationDestination: NavigationDestination) {
+    appState.isBottomBarVisible.value = startNavigationDestination.shouldShowBottomBar
+
     WhereMyPetTheme {
         Scaffold(
             bottomBar = {
@@ -36,12 +39,13 @@ fun MainApp(appState: AppState = rememberAppState()) {
                     )
                 }
             }
-        ) {
+        ) { padding ->
             NavHost(
                 navController = appState.navController,
                 onNavigate = appState::navigate,
                 onBackPressed = appState::onBackPressed,
-                it
+                padding,
+                startNavigationDestination
             )
         }
     }

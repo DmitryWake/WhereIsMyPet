@@ -6,7 +6,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
-import androidx.lifecycle.lifecycleScope
+import com.ewake.whereismypet.feature.login.navigation.LoginDestination
 import com.ewake.whereismypet.main.ui.MainApp
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -22,7 +22,7 @@ class MainActivity : ComponentActivity() {
         }
 
         setContent {
-            MainApp()
+            MainApp(startNavigationDestination = LoginDestination)
         }
     }
 }

@@ -10,6 +10,7 @@ import com.ewake.whereismypet.core.navigation.NavigationDestination
 import com.ewake.whereismypet.feature.ads.addetail.navigation.AdDetailDestination
 import com.ewake.whereismypet.feature.ads.adsfeed.navigation.AdsFeedDestination
 import com.ewake.whereismypet.feature.ads.adsfeed.navigation.adsFeedGraph
+import com.ewake.whereismypet.feature.login.navigation.loginGraph
 import com.ewake.whereismypet.feature.profile.navigation.profileGraph
 
 /**
@@ -23,13 +24,18 @@ fun NavHost(
     onNavigate: (NavigationDestination, String?) -> Unit,
     onBackPressed: (Boolean) -> Unit,
     innerPadding: PaddingValues,
-    startDestination: String = AdsFeedDestination.route
+    startDestination: NavigationDestination
 ) {
     androidx.navigation.compose.NavHost(
         navController,
-        startDestination = startDestination,
+        startDestination = startDestination.route,
         Modifier.padding(innerPadding)
     ) {
+        loginGraph(
+            onNavigateNext = {
+                onNavigate(AdsFeedDestination, null)
+            }
+        )
         profileGraph()
         adsFeedGraph(
             onDetailsNavigate = {
