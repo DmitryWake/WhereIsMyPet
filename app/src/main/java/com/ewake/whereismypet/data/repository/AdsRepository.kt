@@ -9,5 +9,5 @@ import kotlinx.coroutines.flow.Flow
 interface AdsRepository {
 
     suspend fun getAdsFeed(page: Int): List<AdModel>
-    fun getAd(id: String): Flow<AdModel>
+    fun getAd(id: String): Flow<AdModel?>
 }

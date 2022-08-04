@@ -35,7 +35,10 @@ fun MainApp(appState: AppState = rememberAppState(), startNavigationDestination:
                 if (appState.isBottomBarVisible.value) {
                     MainBottomBar(
                         navController = appState.navController,
-                        bottomDestination = appState.bottomNavigationDestinations
+                        bottomDestination = appState.bottomNavigationDestinations,
+                        onNavigate = {
+                            appState.navigate(it)
+                        }
                     )
                 }
             }
@@ -52,7 +55,11 @@ fun MainApp(appState: AppState = rememberAppState(), startNavigationDestination:
 }
 
 @Composable
-fun MainBottomBar(navController: NavHostController, bottomDestination: List<BottomBarDestination>) {
+fun MainBottomBar(
+    navController: NavHostController,
+    bottomDestination: List<BottomBarDestination>,
+    onNavigate: (NavigationDestination) -> Unit
+) {
     BottomNavigation {
         val navBackStackEntry by navController.currentBackStackEntryAsState()
         val currentDestination = navBackStackEntry?.destination
@@ -63,13 +70,7 @@ fun MainBottomBar(navController: NavHostController, bottomDestination: List<Bott
                 label = { Text(stringResource(destination.titleRes)) },
                 selected = currentDestination?.hierarchy?.any { it.route == destination.route } == true,
                 onClick = {
-                    navController.navigate(destination.route) {
-                        popUpTo(navController.graph.findStartDestination().id) {
-                            saveState = true
-                        }
-                        launchSingleTop = true
-                        restoreState = true
-                    }
+                    onNavigate.invoke(destination)
                 }
             )
         }

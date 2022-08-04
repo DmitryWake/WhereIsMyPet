@@ -1,0 +1,36 @@
+{
+  "code": "200",
+  "data": [
+    {
+      "id": "1",
+      "title": "title 1",
+      "description": "description 1 description 1 description 1 description 1 description 1 description 1 description 1 description 1 description 1",
+      "iconUrl": "https://pic.rutubelist.ru/video/eb/f8/ebf8d86ddd388ef643c195927b2be660.jpg"
+    },
+    {
+      "id": "2",
+      "title": "title 2",
+      "description": "description 2 description 2 description 2 description 2 description 2 description 2 description 2 description 2 description 2",
+      "iconUrl": "https://pic.rutubelist.ru/video/eb/f8/ebf8d86ddd388ef643c195927b2be660.jpg"
+    },
+    {
+      "id": "3",
+      "title": "title 3",
+      "description": "description 3 description 3 description 3 description 3 description 3 description 3 description 3 description 3 description 3",
+      "iconUrl": "https://pic.rutubelist.ru/video/eb/f8/ebf8d86ddd388ef643c195927b2be660.jpg"
+    },
+    {
+      "id": "4",
+      "title": "title 4",
+      "description": "description 4 description 4 description 4 description 4 description 4 description 4 description 4 description 4 description 4",
+      "iconUrl": "https://pic.rutubelist.ru/video/eb/f8/ebf8d86ddd388ef643c195927b2be660.jpg"
+    },
+    {
+      "id": "5",
+      "title": "title 5",
+      "description": "description 5 description 5 description 5 description 5 description 5 description 5 description 5 description 5 description 5",
+      "iconUrl": "https://pic.rutubelist.ru/video/eb/f8/ebf8d86ddd388ef643c195927b2be660.jpg"
+    }
+  ],
+  "message": "ok"
+}

@@ -1,8 +1,10 @@
 package com.ewake.whereismypet.feature.login
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Button
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.runtime.Composable
@@ -15,18 +17,36 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.ewake.whereismypet.feature.login.viewmodel.LoginScreenUiState
+import com.ewake.whereismypet.feature.login.viewmodel.LoginViewModel
 
 /**
  * @author Nikolaevskiy Dmitriy
  */
 
+@ExperimentalLifecycleComposeApi
 @Composable
-fun LoginScreen(onNavigateNext: () -> Unit) {
-    PhoneLoginScreen(onNavigateNext)
+fun LoginScreen(onNavigateNext: () -> Unit, viewModel: LoginViewModel = hiltViewModel()) {
+    val uiState: LoginScreenUiState by viewModel.uiState.collectAsStateWithLifecycle()
+
+    when (uiState) {
+        is LoginScreenUiState.EnterCode -> {
+            onNavigateNext.invoke()
+        }
+        is LoginScreenUiState.EnterPhone -> {
+            PhoneLoginScreen(onPhoneEntered = viewModel::sendPhoneNumber)
+        }
+        LoginScreenUiState.Loading -> {
+            CircularProgressIndicator(modifier = Modifier.fillMaxSize())
+        }
+    }
 }
 
 @Composable
-private fun PhoneLoginScreen(onNavigateNext: () -> Unit) {
+private fun PhoneLoginScreen(onPhoneEntered: (String) -> Unit) {
 
     var phone by remember {
         mutableStateOf("+7 (")
@@ -53,7 +73,9 @@ private fun PhoneLoginScreen(onNavigateNext: () -> Unit) {
         )
 
         Button(
-            onClick = onNavigateNext,
+            onClick = {
+                onPhoneEntered.invoke(phone)
+            },
             modifier = Modifier
                 .padding(top = 16.dp)
                 .align(CenterHorizontally)

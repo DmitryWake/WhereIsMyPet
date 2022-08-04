@@ -29,13 +29,19 @@ class AdDetailViewModel @Inject constructor(
         savedStateHandle[AdDetailDestination.adIdArg]
     )
 
-    private val adStream: Flow<Result<AdModel>> = adsRepository.getAd(adId).asResult()
+    private val adStream: Flow<Result<AdModel?>> = adsRepository.getAd(adId).asResult()
 
     val uiState: StateFlow<AdDetailScreenUiState> = adStream.map { result ->
         return@map when (result) {
             is Result.Error -> AdDetailScreenUiState(AdModelUiState.Error)
             is Result.Loading -> AdDetailScreenUiState(AdModelUiState.Loading)
-            is Result.Success -> AdDetailScreenUiState(AdModelUiState.Success(result.data))
+            is Result.Success -> {
+                if (result.data != null) {
+                    AdDetailScreenUiState(AdModelUiState.Success(result.data))
+                } else {
+                    AdDetailScreenUiState(AdModelUiState.Error)
+                }
+            }
         }
     }.stateIn(
         scope = viewModelScope,

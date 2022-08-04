@@ -1,6 +1,7 @@
 package com.ewake.whereismypet.feature.ads.addetail
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -51,7 +52,10 @@ fun AdDetailScreen(
         when (uiState.adModelUiState) {
             AdModelUiState.Error -> Text(text = "Ошибка")
             AdModelUiState.Loading -> CircularProgressIndicator(modifier = Modifier.fillMaxSize())
-            is AdModelUiState.Success -> AdDetailSuccess(model = (uiState.adModelUiState as AdModelUiState.Success).data)
+            is AdModelUiState.Success -> AdDetailSuccess(
+                model = (uiState.adModelUiState as AdModelUiState.Success).data,
+                it
+            )
         }
     }
 }
@@ -73,8 +77,8 @@ private fun AdDetailAppBar(onBackPressed: () -> Unit) {
 }
 
 @Composable
-private fun AdDetailSuccess(model: AdModel) {
-    Column {
+private fun AdDetailSuccess(model: AdModel, paddingValues: PaddingValues) {
+    Column(modifier = Modifier.padding(paddingValues)) {
         SubcomposeAsyncImage(
             model = model.iconUrl,
             contentDescription = model.title,

@@ -1,5 +1,6 @@
 package com.ewake.whereismypet.feature.login.navigation
 
+import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.ewake.whereismypet.core.navigation.NavigationDestination
@@ -14,6 +15,7 @@ object LoginDestination : NavigationDestination {
     override val shouldShowBottomBar: Boolean = false
 }
 
+@ExperimentalLifecycleComposeApi
 fun NavGraphBuilder.loginGraph(onNavigateNext: () -> Unit) {
     composable(route = LoginDestination.route) {
         LoginScreen(
