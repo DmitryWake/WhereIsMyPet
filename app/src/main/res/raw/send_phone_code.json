@@ -1,0 +1,9 @@
+{
+  "code": "200",
+  "data": {
+    "sessionId": "1234567",
+    "userId": "12345",
+    "isFirstAuth": false
+  },
+  "message": "ok"
+}

@@ -2,7 +2,10 @@ package com.ewake.whereismypet.data.repository.impl
 
 import android.content.Context
 import com.ewake.whereismypet.R
+import com.ewake.whereismypet.core.model.AuthModel
+import com.ewake.whereismypet.data.network.model.NetworkAuthModel
 import com.ewake.whereismypet.data.network.model.NetworkResponse
+import com.ewake.whereismypet.data.network.model.toAuthModel
 import com.ewake.whereismypet.data.repository.AuthRepository
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.delay
@@ -23,7 +26,7 @@ class FakeAuthRepository @Inject constructor(
 ) : AuthRepository {
     @ExperimentalSerializationApi
     override suspend fun sendLoginPhone(phone: String): String {
-        delay(500)
+        delay(1000)
 
         val response = networkJson.decodeFromStream<NetworkResponse<String>>(
             applicationContext.resources.openRawResource(
@@ -32,5 +35,16 @@ class FakeAuthRepository @Inject constructor(
         )
 
         return requireNotNull(response.data)
+    }
+
+    @ExperimentalSerializationApi
+    override suspend fun sendPhoneCode(credential: String, code: String): AuthModel {
+        delay(1000)
+
+        val response = networkJson.decodeFromStream<NetworkResponse<NetworkAuthModel>>(
+            applicationContext.resources.openRawResource(R.raw.send_phone_code)
+        )
+
+        return requireNotNull(response.data?.toAuthModel())
     }
 }

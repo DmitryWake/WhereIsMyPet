@@ -30,22 +30,52 @@ class LoginViewModel @Inject constructor(
         initialValue = LoginScreenUiState.EnterPhone()
     )
 
+    private var credential: String? = null
+
     fun sendPhoneNumber(phone: String) {
         viewModelScope.launch {
             runCatching {
                 _uiState = LoginScreenUiState.Loading
                 authRepository.sendLoginPhone(phone)
             }.onSuccess {
-                _uiState = LoginScreenUiState.EnterCode(it)
+                credential = it
+                _uiState = LoginScreenUiState.EnterCode()
             }.onFailure {
                 _uiState = LoginScreenUiState.EnterPhone(it.message)
             }
         }
     }
+
+    fun sendCode(code: String) {
+        if (!credential.isNullOrBlank()) {
+            if (code.length != LoginScreenUiState.EnterCode.PHONE_CODE_LENGTH) {
+                _uiState = LoginScreenUiState.EnterCode("Несоответствие длины кода")
+            }
+
+            viewModelScope.launch {
+                runCatching {
+                    _uiState = LoginScreenUiState.Loading
+                    authRepository.sendPhoneCode(credential!!, code)
+                }.onSuccess {
+                    _uiState = LoginScreenUiState.Navigating
+                }.onFailure {
+                    _uiState = LoginScreenUiState.EnterCode(it.message)
+                }
+            }
+        } else {
+            _uiState = LoginScreenUiState.EnterPhone("Ошибка получения данных, пожалуйста, авторизуйтесь еще раз")
+        }
+    }
 }
 
 sealed interface LoginScreenUiState {
-    data class EnterCode(val credential: String) : LoginScreenUiState
+    data class EnterCode(val error: String? = null) : LoginScreenUiState {
+        companion object {
+            const val PHONE_CODE_LENGTH = 4
+        }
+    }
+
     object Loading : LoginScreenUiState
+    object Navigating : LoginScreenUiState
     data class EnterPhone(val error: String? = null) : LoginScreenUiState
 }
