@@ -3,14 +3,13 @@ package com.ewake.whereismypet.data.repository.impl
 import android.content.Context
 import com.ewake.whereismypet.R
 import com.ewake.whereismypet.core.model.AuthModel
+import com.ewake.whereismypet.core.model.RegisterModel
 import com.ewake.whereismypet.data.network.model.NetworkAuthModel
 import com.ewake.whereismypet.data.network.model.NetworkResponse
 import com.ewake.whereismypet.data.network.model.toAuthModel
 import com.ewake.whereismypet.data.repository.AuthRepository
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.decodeFromStream
@@ -46,5 +45,11 @@ class FakeAuthRepository @Inject constructor(
         )
 
         return requireNotNull(response.data?.toAuthModel())
+    }
+
+    override suspend fun register(registerModel: RegisterModel) {
+        delay(1000)
+
+        return
     }
 }

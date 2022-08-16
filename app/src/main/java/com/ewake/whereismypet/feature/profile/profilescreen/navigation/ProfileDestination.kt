@@ -1,4 +1,4 @@
-package com.ewake.whereismypet.feature.profile.navigation
+package com.ewake.whereismypet.feature.profile.profilescreen.navigation
 
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable

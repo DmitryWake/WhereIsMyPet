@@ -1,4 +1,4 @@
-package com.ewake.whereismypet.feature.login
+package com.ewake.whereismypet.feature.auth.login
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -23,8 +23,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.ewake.whereismypet.core.ui.items.CodeEnterField
-import com.ewake.whereismypet.feature.login.viewmodel.LoginScreenUiState
-import com.ewake.whereismypet.feature.login.viewmodel.LoginViewModel
+import com.ewake.whereismypet.feature.auth.login.viewmodel.LoginScreenUiState
+import com.ewake.whereismypet.feature.auth.login.viewmodel.LoginViewModel
 
 /**
  * @author Nikolaevskiy Dmitriy
@@ -32,7 +32,7 @@ import com.ewake.whereismypet.feature.login.viewmodel.LoginViewModel
 
 @ExperimentalLifecycleComposeApi
 @Composable
-fun LoginScreen(onNavigateNext: () -> Unit, viewModel: LoginViewModel = hiltViewModel()) {
+fun LoginScreen(onNavigateNext: (Boolean) -> Unit, viewModel: LoginViewModel = hiltViewModel()) {
     val uiState: LoginScreenUiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     when (uiState) {
@@ -47,7 +47,7 @@ fun LoginScreen(onNavigateNext: () -> Unit, viewModel: LoginViewModel = hiltView
         LoginScreenUiState.Loading -> {
             CircularProgressIndicator(modifier = Modifier.fillMaxSize())
         }
-        LoginScreenUiState.Navigating -> onNavigateNext.invoke()
+        is LoginScreenUiState.Navigating -> onNavigateNext.invoke((uiState as LoginScreenUiState.Navigating).isFirstLogin)
     }
 }
 

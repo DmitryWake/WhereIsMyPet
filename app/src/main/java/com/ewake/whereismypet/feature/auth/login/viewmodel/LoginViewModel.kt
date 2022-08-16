@@ -1,4 +1,4 @@
-package com.ewake.whereismypet.feature.login.viewmodel
+package com.ewake.whereismypet.feature.auth.login.viewmodel
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -57,7 +57,7 @@ class LoginViewModel @Inject constructor(
                     _uiState = LoginScreenUiState.Loading
                     authRepository.sendPhoneCode(credential!!, code)
                 }.onSuccess {
-                    _uiState = LoginScreenUiState.Navigating
+                    _uiState = LoginScreenUiState.Navigating(it.isFirstAuth)
                 }.onFailure {
                     _uiState = LoginScreenUiState.EnterCode(it.message)
                 }
@@ -76,6 +76,6 @@ sealed interface LoginScreenUiState {
     }
 
     object Loading : LoginScreenUiState
-    object Navigating : LoginScreenUiState
+    data class Navigating(val isFirstLogin: Boolean) : LoginScreenUiState
     data class EnterPhone(val error: String? = null) : LoginScreenUiState
 }

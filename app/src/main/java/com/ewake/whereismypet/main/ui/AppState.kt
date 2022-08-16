@@ -2,7 +2,6 @@ package com.ewake.whereismypet.main.ui
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.currentRecomposeScope
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.navigation.NavDestination
@@ -13,7 +12,7 @@ import androidx.navigation.compose.rememberNavController
 import com.ewake.whereismypet.R
 import com.ewake.whereismypet.core.navigation.NavigationDestination
 import com.ewake.whereismypet.feature.ads.adsfeed.navigation.AdsFeedDestination
-import com.ewake.whereismypet.feature.profile.navigation.ProfileDestination
+import com.ewake.whereismypet.feature.profile.profilescreen.navigation.ProfileDestination
 import com.ewake.whereismypet.main.navigation.BottomBarDestination
 
 /**
@@ -47,6 +46,7 @@ class AppState(val navController: NavHostController) {
             navController.navigate(route ?: destination.route) {
                 popUpTo(navController.graph.findStartDestination().id) {
                     saveState = true
+                    inclusive = true
                 }
                 launchSingleTop = true
                 restoreState = true

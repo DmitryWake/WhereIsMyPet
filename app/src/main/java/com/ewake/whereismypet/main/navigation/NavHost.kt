@@ -10,8 +10,10 @@ import com.ewake.whereismypet.core.navigation.NavigationDestination
 import com.ewake.whereismypet.feature.ads.addetail.navigation.AdDetailDestination
 import com.ewake.whereismypet.feature.ads.adsfeed.navigation.AdsFeedDestination
 import com.ewake.whereismypet.feature.ads.adsfeed.navigation.adsFeedGraph
-import com.ewake.whereismypet.feature.login.navigation.loginGraph
-import com.ewake.whereismypet.feature.profile.navigation.profileGraph
+import com.ewake.whereismypet.feature.auth.login.navigation.loginGraph
+import com.ewake.whereismypet.feature.auth.register.navigation.RegisterDestination
+import com.ewake.whereismypet.feature.auth.register.navigation.registerGraph
+import com.ewake.whereismypet.feature.profile.profilescreen.navigation.profileGraph
 
 /**
  * @author Nikolaevskiy Dmitriy
@@ -32,7 +34,14 @@ fun NavHost(
         Modifier.padding(innerPadding)
     ) {
         loginGraph(
-            onNavigateNext = {
+            onNavigateNext = { isFirstLogin ->
+                if (isFirstLogin) {
+                    onNavigate(RegisterDestination, null)
+                } else {
+                    onNavigate(AdsFeedDestination, null)
+                }
+            },
+            onRegisterNavigate = {
                 onNavigate(AdsFeedDestination, null)
             }
         )
